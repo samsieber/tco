@@ -1,0 +1,21 @@
+[package]
+name = "tco"
+version = "0.0.1"
+authors = ["Sam Sieber <swsieber@gmail.com>"]
+edition = "2018"
+keywords = ["recursion", "tco", "macro"]
+license = "MIT OR Apache-2.0"
+description = "A macro for transforming a tail-calling recursive function to eliminate recursion"
+readme = "README.md"
+repository = "https://github.com/samsieber/tco"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1.0", features = ["full", "visit-mut"] }
+quote = "1.0"
+
+[dev-dependencies]
+trybuild = "1.0"
+futures = "0.3"
