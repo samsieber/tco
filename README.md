@@ -4,6 +4,8 @@ TCO is a tail-call optimization library. It's a proof-of-concept attribute macro
 
 ## Limitations
 
+It's not very smart.
+
 It doesn't actually verify the function is a tail calling function.
 
 It only works on free functions (eg. `fn foo(bar: Bar) -> u32` not in an impl block).
@@ -49,14 +51,14 @@ expands to
 fn fac_with_acc(n: u128, acc: u128) -> u128 {
     let mut n = n;
     let mut acc = acc;
-    'outer: loop {
+    '__tco_loop: loop {
         return {
             if n > 1 {
                 {
                     let __tco_0 = (n - 1, acc * n);
                     n = __tco_0.0;
                     acc = __tco_0.1;
-                    continue;
+                    continue '__tco_loop;
                 }
             } else {
                 acc
@@ -86,14 +88,14 @@ expands to
 async fn fac_with_acc(n: u128, acc: u128) -> u128 {
     let mut n = n;
     let mut acc = acc;
-    'outer: loop {
+    '__tco_loop: loop {
         return {
             if n > 1 {
                 {
                     let __tco_0 = (n - 1, acc * n);
                     n = __tco_0.0;
                     acc = __tco_0.1;
-                    continue;
+                    continue '__tco_loop;
                 }
             } else {
                 acc

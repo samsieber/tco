@@ -48,7 +48,7 @@ impl TCO {
             *node = parse_quote!({
                 let #tco_ident = (#tup);
                 #(#updates)*
-                continue;
+                continue '__tco_loop;
             });
             return true;
         } else {
@@ -97,7 +97,7 @@ pub fn rewrite(_attr: TokenStream, item: TokenStream) -> TokenStream {
         let new_body : Block = parse_quote!(
             {
                 #(#updates)*
-                'outer: loop {
+                '__tco_loop: loop {
                     return #old_body;
                 }
             }
