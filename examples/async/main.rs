@@ -11,6 +11,6 @@ async fn fac_with_acc(n: u128, acc: u128) -> u128 {
     }
 }
 
-pub fn main(){
+pub fn main() {
     assert_eq!(futures::executor::block_on(fac_with_acc(5, 1)), 120);
 }
