@@ -26,8 +26,8 @@ This is just a proof-of-concept. I'd love help fleshing it out.
 
 ## Alternatives
 
- * (tramp)[https://docs.rs/tramp/0.3.0/tramp/]
- * (async-recursion)[https://docs.rs/async-recursion/0.3.1/async_recursion/]
+ * [tramp](https://docs.rs/tramp/0.3.0/tramp/)
+ * [async-recursion](https://docs.rs/async-recursion/0.3.1/async_recursion/)
 
 ## Examples
 
