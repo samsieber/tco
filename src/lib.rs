@@ -98,6 +98,7 @@ pub fn rewrite(_attr: TokenStream, item: TokenStream) -> TokenStream {
             {
                 #(#updates)*
                 '__tco_loop: loop {
+                    #[deny(unreachable_code)]
                     return #old_body;
                 }
             }
