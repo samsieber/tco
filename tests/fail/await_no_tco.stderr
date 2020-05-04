@@ -1,0 +1,7 @@
+error[E0733]: recursion in an `async fn` requires boxing
+ --> $DIR/await_no_tco.rs:5:46
+  |
+5 | async fn fac_with_acc(n: u128, acc: u128) -> u128 {
+  |                                              ^^^^ recursive `async fn`
+  |
+  = note: a recursive `async fn` must be rewritten to return a boxed `dyn Future`

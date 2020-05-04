@@ -2,10 +2,10 @@ extern crate proc_macro;
 
 use proc_macro::TokenStream;
 use proc_macro_error::{abort, proc_macro_error};
-use quote::{format_ident, quote};
-use syn::parse_quote;
+use quote::{format_ident, quote, quote_spanned};
 use syn::spanned::Spanned;
 use syn::visit_mut::{self, VisitMut};
+use syn::{parse2, parse_quote};
 use syn::{parse_macro_input, token::Comma, Block, Expr, ExprCall, FnArg, Ident, ItemFn, Pat};
 
 struct TCO {
@@ -45,6 +45,7 @@ impl TCO {
 
         if replace_call {
             let tco_ident = format_ident!("__tco_{}", self.i, span = expr_call.span());
+            let span = expr_call.span();
             let tup = &mut expr_call.args;
             if !tup.trailing_punct() {
                 tup.push_punct(Comma::default());
@@ -53,11 +54,12 @@ impl TCO {
                 let i = syn::Index::from(i);
                 quote!(#q = #tco_ident.#i;)
             });
-            *node = parse_quote!({
+            let tokens = quote_spanned!(span=>({
                 let #tco_ident = (#tup);
                 #(#updates)*
                 continue '__tco_loop;
-            });
+            }));
+            *node = parse2(tokens).expect("This was in the right format!");
             return true;
         } else {
             visit_mut::visit_expr_mut(self, node);
@@ -104,6 +106,7 @@ pub fn rewrite(_attr: TokenStream, item: TokenStream) -> TokenStream {
             {
                 #(#updates)*
                 '__tco_loop: loop {
+                    #[allow(unused_parens)]
                     #[deny(unreachable_code)]
                     return #old_body;
                 }
