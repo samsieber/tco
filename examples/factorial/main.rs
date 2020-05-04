@@ -7,6 +7,6 @@ fn fac_with_acc(n: u128, acc: u128) -> u128 {
     }
 }
 
-fn main(){
-    assert_eq!(fac_with_acc(5,1), 120);
+fn main() {
+    assert_eq!(fac_with_acc(5, 1), 120);
 }
