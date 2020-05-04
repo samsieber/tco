@@ -6,8 +6,6 @@ TCO is a tail-call optimization library. It's a proof-of-concept attribute macro
 
 It's not very smart.
 
-It doesn't actually verify the function is a tail calling function.
-
 It only works on free functions (eg. `fn foo(bar: Bar) -> u32` not in an impl block).
 
 It _can_ have problems with passing a non-copy argument.
@@ -22,12 +20,17 @@ It can't turn a non-tail calling into a tail calling function.
 
 ## Help wanted
 
-This is just a proof-of-concept. I'd love help fleshing it out. 
+This is just a proof-of-concept. I'd love help fleshing it out.
+
+## Acknowledgements
+
+Thanks to user aloso for providing a better user experience by turning panics into compile errors and contributing a fix to prevent the optimization for happening to non tailcalling functions.
 
 ## Alternatives
 
  * [tramp](https://docs.rs/tramp/0.3.0/tramp/)
  * [async-recursion](https://docs.rs/async-recursion/0.3.1/async_recursion/)
+ * [tailcall](https://docs.rs/tailcall/0.1.4/tailcall/)
 
 ## Examples
 
